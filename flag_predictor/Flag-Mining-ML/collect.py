@@ -167,7 +167,7 @@ def execAll():
 		#below line needs some modification (executing the binary)
 		os.system("./"+new_dir+benchmark+"_"+str(i+1)+".out "+cmdopt_benchmark+" > "+new_dir+benchmark+"_"+str(i+1)+".txt")
 		#assuming the llvm timer output is in new_dir/benchmark_<optnum>.txt
-		times.append((gettimes(new_dir+benchmark+"_"+str(i+1)+".txt"),opt_flags[i]))
+		times.append((gettimes(new_dir+benchmark+"_"+str(i+1)+".txt"),i))
 
 	# print(times)
 	times.sort(key=lambda x: x[0])
@@ -177,8 +177,8 @@ def execAll():
 
 	if def_time != 0:
 		for i in range(len(times)):
-			if times[i][0] <= def_time*0.95:
-				print times[i][1]+" - "+str(times[i][0]*1000)+" ms"
+			if times[i][0] <= def_time*0.9999:
+				print opt_flags[times[i][1]]+" - "+str(times[i][0]*1000)+" ms"
 				####also add new training_samples
 				'''here it goes'''
 				add_samples(i+1,'Output.txt',1)
@@ -190,7 +190,7 @@ def execAll():
 		print "\n"
 		print "top 5 flags:- \n"
 		for i in range(5):
-			sys.stdout.write(times[i][1]+" ")
+			sys.stdout.write(opt_flags[times[i][1]]+" ")
 		print ''
 	else:
 		print "Default time is already 0!"

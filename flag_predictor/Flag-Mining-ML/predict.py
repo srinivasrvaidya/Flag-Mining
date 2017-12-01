@@ -111,14 +111,14 @@ def predict_flags(file):
 				flag_weights[i] += weights[j]
 
 	w = [(flag_weights[i],i) for i in range(len(flag_weights))]
-	w.sort(key=lambda x: x[0])
+	w.sort(key=lambda x: x[0],reverse=True)
 
 	x = []
 	for i in range(len(w)):
-		if w[i][0] != 0.0:
+		if w[i][0] > 0.0:
 			x.append(w[i][1])
 		else:
-			return x
+			break
 	return x
 
 
